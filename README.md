@@ -65,16 +65,17 @@ Rekognition Discord Bot leverages the power of AWS Rekognition to analyze and co
 - **Analyzing a Photo**:
    `/photos`
   
-![mclaren](https://github.com/RocketGod-git/rekognition-bot/assets/57732082/2d093a91-6f10-4b57-8924-71ceefa956b1)
+![mclaren](https://github.com/RocketGod-git/rekognition-bot/assets/57732082/2a9936e3-e7ea-4c55-bbd6-c2a9186df686)
 
-![George_Clooney](https://github.com/RocketGod-git/rekognition-bot/assets/57732082/382c38e3-7784-4e71-b545-0cf6466bb763)
+
+![George_Clooney](https://github.com/RocketGod-git/rekognition-bot/assets/57732082/41423222-5eb4-4800-be26-92c6a3e99116)
 
    Bot will return details about the image, such as objects detected, any celebrities recognized, emotions of faces, and more.
 
 - **Comparing Faces in Two Photos**:
    `/photos`
 
-![Usama_Bin_Laden](https://github.com/RocketGod-git/rekognition-bot/assets/57732082/bce27944-18c0-45ed-b490-be245e1adeb1)
+![Usama_Bin_Laden](https://github.com/RocketGod-git/rekognition-bot/assets/57732082/54755638-d7be-4a53-a0c1-1dc99ebd4a10)
 
    Bot will compare the faces in the two images and provide a similarity score.
 
