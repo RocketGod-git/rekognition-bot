@@ -29,6 +29,15 @@ with open("config.json", "r") as file:
 if not os.path.exists('./photos'):
     os.makedirs('./photos')
 
+# Make sure the photo files are acceptable
+def is_valid_file_format(filename):
+    """
+    Check if the file format is PNG or JPEG.
+    """
+    allowed_extensions = ['.png', '.jpg', '.jpeg']
+    _, file_extension = os.path.splitext(filename)
+    return file_extension.lower() in allowed_extensions
+
 
 # ------ Functions for Image Analysis and Comparison ------
 
@@ -178,6 +187,14 @@ def run_rekognition_bot(token):
 
             if not first_photo:
                 raise ValueError("You must attach at least one photo.")
+            
+            # Check if the provided photos are of valid formats
+            if not is_valid_file_format(first_photo.filename):
+                await interaction.followup.send("The first photo format is not supported. Please provide a PNG or JPEG image.")
+                return
+            if second_photo and not is_valid_file_format(second_photo.filename):
+                await interaction.followup.send("The second photo format is not supported. Please provide a PNG or JPEG image.")
+                return
 
             first_photo_path = f"./photos/{first_photo.filename}" 
             await first_photo.save(fp=first_photo_path)
