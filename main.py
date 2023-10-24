@@ -150,7 +150,7 @@ class RekognitionClient(discord.Client):
         super().__init__(intents=discord.Intents.default())
         self.rekognition = boto3.client('rekognition', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY, region_name='us-west-1')
         self.tree = discord.app_commands.CommandTree(self)
-        self.activity = discord.Activity(type=discord.ActivityType.watching, name="faces")
+        self.activity = discord.Activity(type=discord.ActivityType.watching, name="/photos")
 
     async def handle_errors(self, interaction, error, error_type="Error"):
         # Log the error to the terminal
