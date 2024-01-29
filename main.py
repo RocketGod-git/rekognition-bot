@@ -150,7 +150,7 @@ class RekognitionClient(discord.Client):
         super().__init__(intents=discord.Intents.default())
         self.rekognition = boto3.client('rekognition', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY, region_name='us-west-1')
         self.tree = discord.app_commands.CommandTree(self)
-        self.activity = discord.Activity(type=discord.ActivityType.watching, name="faces")
+        self.activity = discord.Activity(type=discord.ActivityType.watching, name="/photos")
 
     async def handle_errors(self, interaction, error, error_type="Error"):
         # Log the error to the terminal
@@ -211,25 +211,24 @@ def run_rekognition_bot(token):
 
                 files_to_send.append(discord.File(second_photo_path))
 
-                # Check for None bytes
                 if first_image_bytes is None or second_image_bytes is None:
                     raise ValueError("Failed to read image bytes.")
 
                 comparison_response = compare_faces_in_images(first_image_bytes, second_image_bytes, ACCESS_KEY, SECRET_KEY)
                 
-                # Check if 'FaceMatches' in comparison_response has values.
                 if comparison_response.get('FaceMatches'):
                     face_match = comparison_response['FaceMatches'][0]
                     similarity = face_match['Similarity']
                 else:
-                    # No matches found.
-                    similarity = 0
+                    similarity = 0  # Set similarity to 0 if no face matches are found
 
-                # Building embed data based on similarity.
-                if similarity > 90:  # this threshold can be adjusted
+                # Update the logic for determining match status based on the new thresholds
+                if similarity > 50:  # If similarity is above 50%
                     match_status = "Likely the same person"
-                else:
-                    match_status = "Likely different people"
+                elif similarity > 0:  # If similarity is above 0% but 50% or below
+                    match_status = "Not likely the same person"
+                else:  # If similarity is 0%
+                    match_status = "Not the same person"
                 
                 embed_data = {
                     'FaceMatchStatus': match_status,
